@@ -1,7 +1,7 @@
 Feature: game over
 
   As a player playing Wordguesser
-  So I can get back to my life 
+  So I can get back to my life
   I want to know when the game is over
 
 Scenario: game over because I guess the word

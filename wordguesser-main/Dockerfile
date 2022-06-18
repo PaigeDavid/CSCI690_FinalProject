@@ -1,6 +1,6 @@
 FROM ruby:2.6.6
 
-ADD . /wordguesser
+COPY . /wordguesser
 WORKDIR /wordguesser
 RUN bundle install
 
