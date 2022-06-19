@@ -2,7 +2,7 @@
 Convert the Wordguesser app (or an appropriately scoped personal project) into a full DevSecOps pipeline, but use GitHub and GitHub Actions
 
 
-Wordguesser: a scaffolded (!) ESaaS getting-started assignment
+# Wordguesser: a scaffolded (!) ESaaS getting-started assignment
 =============================================================
 
 (v1.1, September 2015.  Written by Armando Fox and Nick Herson)
