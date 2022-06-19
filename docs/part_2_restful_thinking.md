@@ -20,7 +20,7 @@ The widely-used mechanism for maintaining state between a browser and a SaaS ser
 
 In most SaaS apps, the amount of information associated with a user's session is too large to fit into the 4KB allowed in a cookie, so as we'll see in Rails, the cookie information is more often used to hold a pointer to state that lives in a database.  But for this simple example, the game state is small enough that we can keep it directly in the session cookie.
 
-### Self Check Question
+### Self Check Question 1
 
 <details>
   <summary>Enumerate the minimal game state that must be maintained during a game of Wordguesser.</summary>
@@ -28,9 +28,9 @@ In most SaaS apps, the amount of information associated with a user's session is
 </details>
 
 ## The game as a RESTful resource
-------------------------------
+----------
 
-### Self Check Question
+### Self Check Question 2
 
 <details>
   <summary>Enumerate the player actions that could cause changes in game state.</summary>
@@ -47,7 +47,7 @@ In our case, we can think of the game itself as the underlying resource.  Doing 
 Since we've already identified the game state and player actions that could change it, it makes sense to define the game itself as a class. An instance of that class is a game, and represents the resource being manipulated by our SaaS app.
 
 ## Mapping resource routes to HTTP requests
-----------------------------------------
+----------
 
 Our initial list of operations on the resource might look like this, where we've also given a suggestive name to each action:
 
@@ -55,7 +55,7 @@ Our initial list of operations on the resource might look like this, where we've
 2. `show`: Show the status of the current game
 3. `guess`: Guess a letter
 
-### Self Check Question
+### Self Check Question 3
 
 <details>
   <summary>For a good RESTful design, which of the resource operations should be handled by HTTP GET and which ones should be handled by HTTP POST?</summary>
@@ -74,7 +74,8 @@ Answering this question is where the design of many Web apps falters.
 In terms of game play, what probably makes most sense is after the player submits a guess, display the new game state resulting from the guess.  **But we already have a RESTful action for displaying the game state.**  So we can plan to use an **HTTP redirect** to make use of that action.
 
 This is an important distinction, because an HTTP redirect triggers an entirely new HTTP request.  Since that new request does not "know" what letter was guessed, all of the responsibility for **changing** the game state is associated with the guess-a-letter RESTful action, and all of the responsibility
-for **displaying** the current state of the game without changing it is associated with the display-status action.  This is quite different from a scenario in which the guess-a-letter action **also** displays the game state, because in that case, the game-display action would have access to what letter was guessed.  Good RESTful design will keep these responsibilities separate, so that each RESTful action does exactly one thing.
+for **displaying** the current state of the game without changing it is associated with the display-status action.  This is quite different from a scenario in which the guess-a-letter action **also** displays the game state, because in that case, the game-display action would have access to what letter was guessed.  Good RESTful design will keep these responsibilities separate,
+so that each RESTful action does exactly one thing.
 
 A similar argument applies to the create-new-game action.  The responsibility of creating a new game object rests with that action (no pun intended); but once the new game object is created, we already have an action for displaying the current game state.
 
@@ -112,7 +113,7 @@ Similarly, how does the human user generate the `POST` for guessing a new letter
 
 We will see this pattern mirrored later in Rails: a typical resource (such as the information about a player) will have `create` and `update` operations, but to allow a human being to provide the data used to create or update a player record, we will have to provide `new` and `edit` actions respectively that allow the user to enter the information on an HTML form.
 
-#### Self Check Questions
+#### Self Check Questions 4
 
 <details>
   <summary>Why is it appropriate for the <code>new</code> action to use
@@ -161,7 +162,7 @@ Show "you lose" page with button to start new game </td><td>GET
 </table>
 
 
-###### Summary of the design
+## Summary of the design
 
 You may be itchy about not writing any code yet, but you have finished the most difficult and important task: defining the application's basic resources and how the RESTful routes will map them to actions in a SaaS app.  To summarize:
 
@@ -174,6 +175,6 @@ You may be itchy about not writing any code yet, but you have finished the most 
 Note that Sinatra does not really enforce MVC or any other design pattern---if anything,  it's closest to the Page Controller pattern, where we explicitly match up each RESTful request with an HTML view---but it's a simple enough framework that we can use it to implement MVC in this app since we have only one model.
 As we'll see later, more powerful MVC-focused frameworks like Rails are much more productive for creating apps that have many types of models.
 
------
+----------
 
 Next: [Part 3 - Connecting Wordguesser to Sinatra](part_3_connecting_wordguesser_to_sinatra.md)

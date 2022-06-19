@@ -1,7 +1,6 @@
-
-Part 4: Introducing Cucumber
+# Part 4: Introducing Cucumber
 ============================
-
+## Cucumber
 Cucumber is a remarkable tool for writing high-level integration and acceptance tests, terms with which you're already familiar.  We'll learn much more about Cucumber later, but for now we will use it to *drive* the development of your app's code.
 
 Just as you used RSpec to "drive" the creation of the class's methods, you'll next use Cucumber to drive the creation of the SaaS code.
@@ -20,7 +19,7 @@ As an integration testing tool, Cucumber can be used to test almost any kind of 
 
 Since a SaaS server is simulated by issuing HTTP requests, and its behavior can be inspected by looking at the HTML pages served, we configure Cucumber to use [Capybara](https://github.com/jnicklas/capybara), a Ruby-based browser simulator that includes a domain-specific language for simulating browser actions and inspecting the SaaS server's responses to those actions.
 
-#### Self Check Questions
+### Self Check Questions
 
 <details>
   <summary>Read the section on "Using Capybara with Cucumber" on Capybara's home page.  Which step definitions use Capybara to simulate the server as a browser would?  Which step definitions use Capybara to inspect the app's response to the stimulus?</summary>
@@ -45,7 +44,7 @@ We'll first get the "I start a new game" scenario to pass; you'll then use the s
 
 You already saw that you can load the new game page, but get an error when clicking the button for actually creating a new game.  You'll now reproduce this behavior with a Cuke scenario.
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>When the "browser simulator" in Capybara issues the <code>visit '/new'</code> request, Capybara will do an HTTP GET to the partial URL <code>/new</code> on the app.  Why do you think <code>visit</code> always does a GET, rather than giving the option to do either a GET or a POST in a given step?</summary>
@@ -56,7 +55,7 @@ You already saw that you can load the new game page, but get an error when click
 Run the "new game" scenario with:
 
 ```sh
-$ cucumber features/start_new_game.feature
+cucumber features/start_new_game.feature
 ```
 
 If you get an error about Cucumber like this one, just follow the advice and run `bundle install` first.
@@ -67,7 +66,8 @@ Could not find proper version of cucumber (2.0.0) in any of the sources
 Run `bundle install` to install missing gems.
 ```
 
-The scenario fails because the `<form>` tag in `views/new.erb` is incorrect and incomplete in the information that tells the browser what URL to post the form to.  Based on the table of routes we developed in an earlier section, fill in the `<form>` tag's attributes appropriately. You can inspect what happens for various routes in app.rb, but you don't need to edit this file yet.  (Hint: if you get stuck, take a look at `show.erb` (at the bottom) for a similar example of a filled in form tag.)
+The scenario fails because the `<form>` tag in `views/new.erb` is incorrect and incomplete in the information that tells the browser what URL to post the form to.  Based on the table of routes we developed in an earlier section, fill in the `<form>` tag's attributes appropriately. You can inspect what happens for various routes in app.rb, but you don't need to edit this file yet.
+(Hint: if you get stuck, take a look at `show.erb` (at the bottom) for a similar example of a filled in form tag.)
 
 The create-new-game code in the Sinatra app should do the following:
 
@@ -86,16 +86,17 @@ Now stage and commit all files locally, then `git push heroku master` to deploy 
   <p><blockquote>The keywords are all aliases for the same method.  Which one you use is determined by what makes the scenario most readable.</blockquote></p>
 </details>
 
-Develop the scenario for guessing a letter
+## Develop the scenario for guessing a letter
 -------------------------------------------
 
 For this scenario, in `features/guess.feature`, we've already provided a correct  `show.erb` HTML file that submits the player's guess to the `guess` action.  You already have a `WordGuesserGame#guess` instance method that has the needed functionality.
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>In <code>game_steps.rb</code>, look at the code for "I start a new game..." step, and in particular the <code>stub_request</code> command.  Given the hint that that command is provided by a Gem (library) called <code>webmock</code>, what's going on with that line, and why is it needed?  (Use Google if needed.)</summary>
-  <p><blockquote>Webmock lets our tests "intercept" HTTP requests coming **from** our app and directed to another service.  In this case, it's intercepting the POST request (the same one you manually did with <code>curl</code> in an earlier part of the assignment) and faking the reply value.  This lets us enforce deterministic behavior of our tests, and also means we're not hitting the real external server each time our test runs.</blockquote></p>
+  <p><blockquote>Webmock lets our tests "intercept" HTTP requests coming **from** our app and directed to another service.  In this case, it's intercepting the POST request (the same one you manually did with <code>curl</code> in an earlier part of the assignment) and faking the reply value.  This lets us enforce deterministic behavior of our tests,
+  and also means we're not hitting the real external server each time our test runs.</blockquote></p>
 </details>
 
 The special Sinatra hash `params[]` has a key-value pair for each nonblank field on a submitted form: the key is the symbolized `name` attribute of the form field and the value is what the user typed into that field, or in the case of a checkbox or radiobutton, the browser-specified values indicating if it's checked or unchecked. ("Symbolized" means the string is converted to a symbol, so `"foo"` becomes `:foo`.)
@@ -103,7 +104,8 @@ The special Sinatra hash `params[]` has a key-value pair for each nonblank field
 #### Self Check Question
 
 <details>
-  <summary>In your Sinatra code for processing a guess, what expression would you use to extract *just the first character* of what the user typed in the letter-guess field of the form in <code>show.erb</code>? **CAUTION:** if the user typed nothing, there won't be any matching key in <code>params[]</code>, so dereferencing the form field will give <code>nil</code>.  In that case, your code should return the empty string rather than an error.</summary>
+  <summary>In your Sinatra code for processing a guess, what expression would you use to extract *just the first character* of what the user typed in the letter-guess field of the form in <code>show.erb</code>? **CAUTION:** if the user typed nothing, there won't be any matching key in <code>params[]</code>, so dereferencing the form field will give <code>nil</code>.
+  In that case, your code should return the empty string rather than an error.</summary>
   <p><blockquote><code>params[:guess].to_s[0]</code> or its equivalent.  <code>to_s</code> converts <code>nil</code> to the empty string in case the form field was left blank (and therefore not included in <code>params</code> at all).   <code>[0]</code> grabs the first character only; for an empty string, it returns an empty string.</blockquote></p>
 </details>
 <br />
@@ -120,6 +122,6 @@ When finished adding that code, verify that all the steps in `features/guess.fea
 
 * Debugging tip: The Capybara command `save_and_open_page` placed in a step definition will cause the step to open a Web browser window showing what the page looks like at that point in the scenario.  The functionality is provided in part by a gem called `launchy` which is in the Gemfile.
 
------
+-------------------------------------------
 
 Next: [Part 5 - Corner Cases](part_5_corner_cases.md)
