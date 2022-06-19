@@ -1,12 +1,6 @@
 name: Unit_Test
 
-on: [push, pull_request]
-  push:
-   paths:
-   - 'api/**'
-  pull_request:
-    paths:
-    - 'api/**'
+on: push
 
 jobs:
   build:
