@@ -1,6 +1,6 @@
 # Part 3: Connecting wordguesser to Sinatra
 
-## You've already met Sinatra.  Here's what's new in the Sinatra app skeleton [`app.rb`](../app.rb) that we provide for Wordguesser:
+## You've already met Sinatra.  Here's what's new in the Sinatra app skeleton [`app.rb`](../app.rb) that we provide for Wordguesser
 
 * `before do...end` is a block of code executed *before* every SaaS request
 
