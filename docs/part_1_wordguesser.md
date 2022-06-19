@@ -5,14 +5,14 @@ cd hw-sinatra-saas-wordguesser
 bundle
 ```
 
-Developing Wordguesser Using TDD and Guard
+## Developing Wordguesser Using TDD and Guard
 -----------------------------------------
 
 **Goals:** Use test-driven development (TDD) based on the tests we've provided to develop the game logic for Wordguesser, which forces you to think about what data is necessary to capture the game's state. This will be important when you SaaS-ify the game in the next part.
 
 **What you will do:**  Use `autotest`, our provided test cases will be re-run each time you make a change to the app code.  One by one, the tests will go from red (failing) to green (passing) as you create the app code.  By the time you're done, you'll have a working WordGuesser game class, ready to be "wrapped" in SaaS using Sinatra.
 
-Overview
+### Overview
 --------
 
 Our Web-based word-guessing game will work as follows:
@@ -25,7 +25,7 @@ Our Web-based word-guessing game will work as follows:
 
 * A letter that has already been guessed or is a non-alphabet character is considered "invalid", i.e. it is not a "valid" guess
 
-To make the game fun to play, each time you start a new game the app will actually retrieve a random English word from a remote server, so every game will be different.  This feature will introduce you not only to using an external service (the random-word generator) as a "building block" in a **Service-Oriented Architecture**, but also how a Cucumber scenario can test such an app 
+To make the game fun to play, each time you start a new game the app will actually retrieve a random English word from a remote server, so every game will be different.  This feature will introduce you not only to using an external service (the random-word generator) as a "building block" in a **Service-Oriented Architecture**, but also how a Cucumber scenario can test such an app
 deterministically with tests that **break the dependency** on the external service at testing time.
 
 * In the app's root directory, say `bundle exec autotest`.  
@@ -38,7 +38,7 @@ Now, with Autotest still running, delete `, :pending => true` from line 12, and 
 
 The `describe 'new'` block means "the following block of tests describe the behavior of a 'new' WordGuesserGame instance."  The `WordGuesserGame.new` line causes a new instance to be created, and the next lines verify the presence and values of instance variables.
 
-### Self Check Questions
+#### Self Check Questions
 
 <details>
   <summary>According to our test cases, how many arguments does the
@@ -62,7 +62,7 @@ instance variables is a WordGuesserGame expected to have?</summary>
 
 In order to make this failing test pass you'll need to create getters and setters for the instance variables mentioned in the self check tests above.  Hint: use `attr_accessor`.  When you've done this successfully and saved `wordguesser_game.rb`, `autotest` should wake up again and the examples that were previously failing should now be passing (green).
 
-Continue in this manner, removing `, :pending => true` from one or two examples at a time working your way down the specs, until you've implemented all the instance methods of the game class: `guess`, which processes a guess and modifies the instance variables `wrong_guesses` and `guesses` accordingly; `check_win_or_lose`, which returns one of the symbols 
+Continue in this manner, removing `, :pending => true` from one or two examples at a time working your way down the specs, until you've implemented all the instance methods of the game class: `guess`, which processes a guess and modifies the instance variables `wrong_guesses` and `guesses` accordingly; `check_win_or_lose`, which returns one of the symbols
 `:win`, `:lose`, or `:play` depending on the current game state; and `word_with_guesses`, which substitutes the correct guesses made so far into the word.
 
 ### Debugging Tip
