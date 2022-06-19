@@ -1,4 +1,4 @@
-name: Super-Linter
+name: Static_Analyis
 
 on: push
 
