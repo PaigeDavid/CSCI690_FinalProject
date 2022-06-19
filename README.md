@@ -22,7 +22,7 @@ After completing this assignment, you will be able to:
 * Understand one use case of service-oriented architecture, in which your SaaS app relies on an external service's API (application programming interface) to provide part of the SaaS app's functionality.
 
 ## Prerequisites
--------------
+--------------
 * You should be familiar with Ruby basics, for example by completing the Ruby Intro or Ruby Calisthenics assignment.
 * You should have read [ESaaS](http://www.saasbook.info) Chapter 2, "The Architecture of SaaS Applications", and watched the accompanying videos in the [MOOC](http://www.saas-class.org).
 * You should be comfortable with basic Git usage and how to push your code to GitHub, as described in Appendix A of [ESaaS](http://www.saasbook.info).
@@ -31,7 +31,7 @@ After completing this assignment, you will be able to:
 **NOTE: You may find the [Sinatra documentation](https://sinatrarb.com) helpful to have on hand.**
 
 ## Introduction
-------------
+--------------
 The full Agile/XP cycle we follow in ESaaS includes talking to the customer, using BDD to develop scenarios, turning those scenarios into runnable integration/acceptance tests with Cucumber, using those scenarios plus TDD to drive the creation of actual code, and deploying the result of each iteration's work to the cloud.
 
 In this introductory assignment, we've provided RSpec unit tests to let you use TDD to develop game logic for a word-guessing game.  In the full Agile/XP cycle, you'd develop these tests yourself as you code.
@@ -47,7 +47,7 @@ You'll deploy your game to the cloud using Heroku, giving you experience in auto
 This assignment uses the simple [Sinatra](https://github.com/sinatra/sinatra) framework rather than Rails, so that you can focus on tools, mechanics, and SaaS concepts, all of which will readily map to Rails later.  Since our app doesn't have a database and has very few functions, Sinatra is an easy way to get started.
 
 ## Contents
----------
+--------------
 
 * Part 0: [Demystifying SaaS app creation](docs/part_0_create_saas_app.md)
 * Part 1: [Wordguesser](docs/part_1_wordguesser.md)
