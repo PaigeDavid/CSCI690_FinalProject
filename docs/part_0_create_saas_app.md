@@ -5,7 +5,7 @@
 
 **What you will do:** Create a simple "hello world" app using the Sinatra framework, version it properly, and deploy it to Heroku.
 
-Creating and versioning a simple SaaS app
+## Creating and versioning a simple SaaS app
 -----------------------------------------
 
 SaaS apps are developed on your computer but *deployed to production* on a server that others can access.  We try to minimize the differences between the development and production *environments*, to avoid difficult-to-diagnose problems in which something works one way on your development computer but a different way (or not at all) when that code is deployed to production.
@@ -34,7 +34,7 @@ The second line specifies which version of the Ruby language interpreter is requ
 
 The last line says we need version 2.0.1 or later of the `sinatra` gem. In some cases we don't need to specify which version of a gem we want; in this case we do specify it because we rely on some features that are absent from earlier versions of Sinatra.
 
-Run Bundler
+### Run Bundler
 -----------
 
 Run the command `bundle`, which examines your `Gemfile` to make sure the correct gems (and, where specified, the correct versions) are available, and tries to install them otherwise.  This will create a new file `Gemfile.lock`, *which you should place under version control.*
@@ -48,7 +48,7 @@ git commit -m "Set up the Gemfile"
 
 The first command stages all changed files for committing. The second command commits the staged files with the comment in the quotes. You can repeat these commands to commit future changes. Remember that these are LOCAL commits -- if you want these changes on GitHub, you'll need to do a git push command, which we will show later.
 
-## Self Check Questions (click triangle to check your answer)
+#### Self Check Questions (click triangle to check your answer)
 
 <details>
   <summary>What's the difference between the purpose and contents of <code>Gemfile</code> and <code>Gemfile.lock</code>?  Which file is needed to completely reproduce the development environment's gems in the production environment?</summary>
@@ -63,10 +63,10 @@ that were not listed in <code>Gemfile</code>?</summary>
 </details>
 
 
-Create a simple SaaS app with Sinatra
+### Create a simple SaaS app with Sinatra
 -------------------------------------
 
-As Chapter 2 of ESaaS explains, SaaS apps require a web server to receive HTTP requests from the outside world, and an application server that "connects" your app's logic to the web server.  For development, we will use `webrick`, a very simple Ruby-based web server that would be inappropriate for production but is fine for development.
+As Chapter 2 of ESaaS explains, SaaS apps require a web server to receive HTTP requests from the outside world, and an application server that "connects" your app's logic to the web server.  For development, we will use `webrick`, a very simple Ruby-based web server that would be inappropriate for production but is fine for development. 
 In both development and production, we will use the `rack` Ruby-based application server, which supports Ruby apps written in various frameworks including Sinatra and Rails.
 
 As Chapter 2 of *ESaaS* explains, a SaaS app essentially recognizes and responds to HTTP requests corresponding to the application's *routes* (recall that a route consists of an HTTP method such as `GET` or `POST` plus a URI).  Sinatra provides an extremely lightweight shorthand for matching a route with the app code to be executed when a request using that route arrives from the Web server.
@@ -85,7 +85,7 @@ end
 
 The `get` method is provided by the `Sinatra::Base` class, from which our `MyApp` class inherits; `Sinatra::Base` is available because we load the Sinatra library on line 1.
 
-### Self Check Question
+#### Self Check Question
 
 <details>
   <summary>What *two* steps did we take earlier to guarantee that the Sinatra library is available to load in line 1?</summary>
@@ -119,7 +119,7 @@ To see the webapp:
 | Visit `localhost:3000` in your browser to see the webapp. It will open in a new tab in the IDE if you click on it, but you should open up a fresh browser tab and paste in that URL. <br><br> Point a new Web browser tab at the running app's URL and verify that you can see "Hello World". | Click the "Box URL" button on your top tool bar. The button should be pre-configured to point at port 3000:
 <br> <br> ![BoxURL](https://global.codio.com/content/BoxURL.png) <br> <br> The app should open in a new tab. Verify that you can see "Hello World". |
 
-#### Self Check Question
+##### Self Check Question
 
 <details>
   <summary>What happens if you try to visit a non-root URL such as <code>https://localhost:3000/hello</code> and why? (your URL root will vary)</summary>
@@ -130,7 +130,7 @@ To see the webapp:
 
 You should now have the following files under version control: `Gemfile`, `Gemfile.lock`, `app.rb`, `config.ru`.  This is a minimal SaaS app: the app file itself, the list of explicitly required gems, the list of actual gems installed including the dependencies implied by the required gems, and a configuration file telling the appserver how to start the app.
 
-Modify the app
+## Modify the app
 --------------
 
 Modify `app.rb` so that instead of "Hello World" it prints "Goodbye World". Save your changes to `app.rb` and try refreshing your browser tab where the app is running.
@@ -168,7 +168,7 @@ now cause the server to restart automatically, similar to the use of `guard` to 
 
 Modify `app.rb` to print a different message, and verify that the change is detected by refreshing your browser tab with the running app.  Also before we move on you should commit your latest changes to git.
 
-Deploy to Heroku
+## Deploy to Heroku
 ----------------
 Heroku is a cloud platform-as-a-service (PaaS) where we can deploy our Sinatra (and later Rails) applications. If you don't have an account yet, go sign up at <http://www.heroku.com/>. You'll need your login and password for the next step.
 
@@ -199,7 +199,7 @@ git push heroku master
 (`master` refers to which branch of the remote Heroku repo we are pushing to.  We'll learn about branches later in the course, but for now, suffice it to say that you can only deploy to the `master` branch on Heroku.) This push will create a running instance of your app at some URL ending with `herokuapp.com`. Enter that URL in a new browser tab to see your app running live.
 Congratulations, you did it--your app is live!
 
-Summary
+## Summary
 -------
 
 * You started a new application project by creating a `Gemfile` specifying which gems you need and running `bundle` to verify that they're available and create the `Gemfile.lock` file that records the versions of gems actually in use.

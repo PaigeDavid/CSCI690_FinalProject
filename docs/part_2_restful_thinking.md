@@ -1,4 +1,4 @@
-Part 2: RESTful thinking for Wordguesser
+# Part 2: RESTful thinking for Wordguesser
 =======================================
 Note: Part 2 is just reading/background info for Part 3.
 
@@ -6,7 +6,7 @@ Note: Part 2 is just reading/background info for Part 3.
 
 **What you will do:** Create a Sinatra app that makes use of the WordGuesserGame logic developed in the previous part, allowing you to play Wordguesser via  a browser.
 
-Game State
+## Game State
 ----------
 
 Unlike a shrinkwrapped app, SaaS runs over the stateless HTTP protocol, with each HTTP request causing something to happen in the app.  And because HTTP is stateless, we must think carefully about the following 2 questions:  
@@ -20,17 +20,17 @@ The widely-used mechanism for maintaining state between a browser and a SaaS ser
 
 In most SaaS apps, the amount of information associated with a user's session is too large to fit into the 4KB allowed in a cookie, so as we'll see in Rails, the cookie information is more often used to hold a pointer to state that lives in a database.  But for this simple example, the game state is small enough that we can keep it directly in the session cookie.
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>Enumerate the minimal game state that must be maintained during a game of Wordguesser.</summary>
   <p><blockquote>The secret word; the list of letters that have been guessed correctly; the list of letters that have been guessed incorrectly.  Conveniently, the well-factored WordGuesserGame class encapsulates this state using its instance variables, as proper object-oriented design recommends.</blockquote></p>
 </details>
 
-The game as a RESTful resource
+## The game as a RESTful resource
 ------------------------------
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>Enumerate the player actions that could cause changes in game state.</summary>
@@ -46,7 +46,7 @@ In our case, we can think of the game itself as the underlying resource.  Doing 
 
 Since we've already identified the game state and player actions that could change it, it makes sense to define the game itself as a class. An instance of that class is a game, and represents the resource being manipulated by our SaaS app.
 
-Mapping resource routes to HTTP requests
+## Mapping resource routes to HTTP requests
 ----------------------------------------
 
 Our initial list of operations on the resource might look like this, where we've also given a suggestive name to each action:
@@ -55,11 +55,12 @@ Our initial list of operations on the resource might look like this, where we've
 2. `show`: Show the status of the current game
 3. `guess`: Guess a letter
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>For a good RESTful design, which of the resource operations should be handled by HTTP GET and which ones should be handled by HTTP POST?</summary>
-  <p><blockquote>Operations handled with <code>GET</code> should not have side effects on the resource, so <code>show</code> can be handled by a <code>GET</code>, but <code>create</code> and <code>guess</code> (which modify game state) should use <CODE>POST</CODE>.  (In fact, in a true service-oriented architecture we can also choose to use other HTTP verbs like <CODE>PUT</CODE> and <CODE>DELETE</CODE>, but we won't cover that in this assignment.)</blockquote></p>
+  <p><blockquote>Operations handled with <code>GET</code> should not have side effects on the resource, so <code>show</code> can be handled by a <code>GET</code>, but <code>create</code> and <code>guess</code> (which modify game state) should use <CODE>POST</CODE>.  (In fact, in a true service-oriented
+  architecture we can also choose to use other HTTP verbs like <CODE>PUT</CODE> and <CODE>DELETE</CODE>, but we won't cover that in this assignment.)</blockquote></p>
 </details>
 
 <br />
@@ -72,7 +73,8 @@ Answering this question is where the design of many Web apps falters.
 
 In terms of game play, what probably makes most sense is after the player submits a guess, display the new game state resulting from the guess.  **But we already have a RESTful action for displaying the game state.**  So we can plan to use an **HTTP redirect** to make use of that action.
 
-This is an important distinction, because an HTTP redirect triggers an entirely new HTTP request.  Since that new request does not "know" what letter was guessed, all of the responsibility for **changing** the game state is associated with the guess-a-letter RESTful action, and all of the responsibility for **displaying** the current state of the game without changing it is associated with the display-status action.  This is quite different from a scenario in which the guess-a-letter action **also** displays the game state, because in that case, the game-display action would have access to what letter was guessed.  Good RESTful design will keep these responsibilities separate, so that each RESTful action does exactly one thing.
+This is an important distinction, because an HTTP redirect triggers an entirely new HTTP request.  Since that new request does not "know" what letter was guessed, all of the responsibility for **changing** the game state is associated with the guess-a-letter RESTful action, and all of the responsibility
+for **displaying** the current state of the game without changing it is associated with the display-status action.  This is quite different from a scenario in which the guess-a-letter action **also** displays the game state, because in that case, the game-display action would have access to what letter was guessed.  Good RESTful design will keep these responsibilities separate, so that each RESTful action does exactly one thing.
 
 A similar argument applies to the create-new-game action.  The responsibility of creating a new game object rests with that action (no pun intended); but once the new game object is created, we already have an action for displaying the current game state.
 
@@ -130,7 +132,8 @@ provide the human Web user a way to generate that request.</blockquote></p>
 </details>
 <br />
 
-Lastly, when the game is over (whether win or lose), we shouldn't be accepting any more guesses.  Since we're planning for our `show` page to include a letter-guess form, perhaps we should have a different type of `show` action when the game has ended---one that does **not** include a way for the player to guess a letter, but (perhaps) does include a button to start a new game.  We can even have separate pages for winning and losing, both of which give the player the chance to start a new game.  Since the `show` action can certainly tell if the game is over, it can conditionally redirect to the `win` or `lose` action when called.
+Lastly, when the game is over (whether win or lose), we shouldn't be accepting any more guesses.  Since we're planning for our `show` page to include a letter-guess form, perhaps we should have a different type of `show` action when the game has ended---one that does **not** include a way for the player to guess a letter, but (perhaps) does include a button to start a new game.
+We can even have separate pages for winning and losing, both of which give the player the chance to start a new game.  Since the `show` action can certainly tell if the game is over, it can conditionally redirect to the `win` or `lose` action when called.
 
 The routes for each of the RESTful actions in the game, based on the description of what the route should do:
 
@@ -158,7 +161,7 @@ Show "you lose" page with button to start new game </td><td>GET
 </table>
 
 
-## Summary of the design
+###### Summary of the design
 
 You may be itchy about not writing any code yet, but you have finished the most difficult and important task: defining the application's basic resources and how the RESTful routes will map them to actions in a SaaS app.  To summarize:
 
@@ -168,7 +171,8 @@ You may be itchy about not writing any code yet, but you have finished the most 
 
 * We will create HTML views and forms to represent the game state, to allow submitting a guess, to allow starting a new game, and to display a message when the player wins or loses.  In MVC, these are our views.
 
-Note that Sinatra does not really enforce MVC or any other design pattern---if anything,  it's closest to the Page Controller pattern, where we explicitly match up each RESTful request with an HTML view---but it's a simple enough framework that we can use it to implement MVC in this app since we have only one model.  As we'll see later, more powerful MVC-focused frameworks like Rails are much more productive for creating apps that have many types of models.
+Note that Sinatra does not really enforce MVC or any other design pattern---if anything,  it's closest to the Page Controller pattern, where we explicitly match up each RESTful request with an HTML view---but it's a simple enough framework that we can use it to implement MVC in this app since we have only one model.
+As we'll see later, more powerful MVC-focused frameworks like Rails are much more productive for creating apps that have many types of models.
 
 -----
 

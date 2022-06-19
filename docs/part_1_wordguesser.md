@@ -13,7 +13,7 @@ bundle
 **What you will do:**  Use `autotest`, our provided test cases will be re-run each time you make a change to the app code.  One by one, the tests will go from red (failing) to green (passing) as you create the app code.  By the time you're done, you'll have a working WordGuesser game class, ready to be "wrapped" in SaaS using Sinatra.
 
 ### Overview
---------
+-----------------------------------------
 
 Our Web-based word-guessing game will work as follows:
 
@@ -77,6 +77,6 @@ curl --data '' http://randomword.saasbook.info/RandomWord
 
 (`--data` is necessary to force `curl` to do a POST rather than a GET.  Normally the argument to `--data` would be the encoded form fields, but in this case no form fields are needed.) Using `curl` is a great way to debug interactions with external services.  `man curl` for (much) more detail on this powerful command-line tool.
 
------
+-----------------------------------------
 
 Next: [Part 2 - RESTful Thinking](part_2_restful_thinking.md)
