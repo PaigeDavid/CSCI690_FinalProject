@@ -19,7 +19,7 @@ As an integration testing tool, Cucumber can be used to test almost any kind of 
 
 Since a SaaS server is simulated by issuing HTTP requests, and its behavior can be inspected by looking at the HTML pages served, we configure Cucumber to use [Capybara](https://github.com/jnicklas/capybara), a Ruby-based browser simulator that includes a domain-specific language for simulating browser actions and inspecting the SaaS server's responses to those actions.
 
-### Self Check Questions
+### Self Check Questions 1
 
 <details>
   <summary>Read the section on "Using Capybara with Cucumber" on Capybara's home page.  Which step definitions use Capybara to simulate the server as a browser would?  Which step definitions use Capybara to inspect the app's response to the stimulus?</summary>
@@ -44,7 +44,7 @@ We'll first get the "I start a new game" scenario to pass; you'll then use the s
 
 You already saw that you can load the new game page, but get an error when clicking the button for actually creating a new game.  You'll now reproduce this behavior with a Cuke scenario.
 
-### Self Check Question
+### Self Check Question 2
 
 <details>
   <summary>When the "browser simulator" in Capybara issues the <code>visit '/new'</code> request, Capybara will do an HTTP GET to the partial URL <code>/new</code> on the app.  Why do you think <code>visit</code> always does a GET, rather than giving the option to do either a GET or a POST in a given step?</summary>
@@ -79,7 +79,7 @@ View how these steps are actualized in the app.rb file under the `post /create d
 
 Now stage and commit all files locally, then `git push heroku master` to deploy to Heroku again and manually verify this improved behavior.
 
-#### Self Check Question
+#### Self Check Question 3
 
 <details>
   <summary>What is the significance of using <code>Given</code> vs. <code>When</code> vs. <code>Then</code> in the feature file?  What happens if you switch them around? Conduct a simple experiment to find out, then confirm your results by using Google.</summary>
@@ -91,7 +91,7 @@ Now stage and commit all files locally, then `git push heroku master` to deploy 
 
 For this scenario, in `features/guess.feature`, we've already provided a correct  `show.erb` HTML file that submits the player's guess to the `guess` action.  You already have a `WordGuesserGame#guess` instance method that has the needed functionality.
 
-### Self Check Question
+### Self Check Question 4
 
 <details>
   <summary>In <code>game_steps.rb</code>, look at the code for "I start a new game..." step, and in particular the <code>stub_request</code> command.  Given the hint that that command is provided by a Gem (library) called <code>webmock</code>, what's going on with that line, and why is it needed?  (Use Google if needed.)</summary>
@@ -99,9 +99,10 @@ For this scenario, in `features/guess.feature`, we've already provided a correct
   and also means we're not hitting the real external server each time our test runs.</blockquote></p>
 </details>
 
-The special Sinatra hash `params[]` has a key-value pair for each nonblank field on a submitted form: the key is the symbolized `name` attribute of the form field and the value is what the user typed into that field, or in the case of a checkbox or radiobutton, the browser-specified values indicating if it's checked or unchecked. ("Symbolized" means the string is converted to a symbol, so `"foo"` becomes `:foo`.)
+The special Sinatra hash `params[]` has a key-value pair for each nonblank field on a submitted form: the key is the symbolized `name` attribute of the form field and the value is what the user typed into that field, or in the case of a checkbox or radiobutton, the browser-specified values indicating if it's checked or unchecked.
+("Symbolized" means the string is converted to a symbol, so `"foo"` becomes `:foo`.)
 
-#### Self Check Question
+#### Self Check Question 5
 
 <details>
   <summary>In your Sinatra code for processing a guess, what expression would you use to extract *just the first character* of what the user typed in the letter-guess field of the form in <code>show.erb</code>? **CAUTION:** if the user typed nothing, there won't be any matching key in <code>params[]</code>, so dereferencing the form field will give <code>nil</code>.

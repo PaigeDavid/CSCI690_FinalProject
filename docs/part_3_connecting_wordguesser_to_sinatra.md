@@ -1,5 +1,6 @@
 # Part 3: Connecting wordguesser to Sinatra
-##You've already met Sinatra.  Here's what's new in the Sinatra app skeleton [`app.rb`](../app.rb) that we provide for Wordguesser:
+
+## You've already met Sinatra.  Here's what's new in the Sinatra app skeleton [`app.rb`](../app.rb) that we provide for Wordguesser:
 
 * `before do...end` is a block of code executed *before* every SaaS request
 
@@ -7,7 +8,7 @@
 
 * The calls  `erb :` *action* cause Sinatra to look for the file `views/`*action*`.erb` and run them through the Embedded Ruby processor, which looks for constructions `<%= like this %>`, executes the Ruby code inside, and substitutes the result.  The code is executed in the same context as the call to `erb`, so the code can "see" any instance variables set up in the `get` or `post` blocks.
 
-### Self Check Question
+### Self Check Question 1
 
 <details>
   <summary><code>@game</code> in this context is an instance variable of what
@@ -29,7 +30,7 @@ such as to inform them that they have erroneously repeated a guess?  The problem
 
 To do this, we use the `sinatra-flash` gem, which you can see in the Gemfile.  `flash[]` is a hash for remembering short messages that persist until the *very next* request (usually a redirect), and are then erased.
 
-### Self Check Question
+### Self Check Question 2
 
 <details>
   <summary>Why does this save work compared to just storing those
@@ -38,11 +39,11 @@ messages in the <code>session[]</code> hash?</summary>
 </details>
 
 ## Running the Sinatra app
------------------------
+-----------
 
 As before, run the shell command `bundle exec rackup --port 3000` to start the app, or `bundle exec rerun -- rackup --port 3000 --host 0.0.0.0` if you want to rerun the app each time you make a code change.
 
-### Self Check Question
+### Self Check Question 3
 
 <details>
   <summary>Based on the output from running this command, what is the full URL you need to visit in order to visit the New Game page?</summary>
@@ -52,7 +53,7 @@ As before, run the shell command `bundle exec rackup --port 3000` to start the a
 
 Visit this URL and verify that the Start New Game page appears.
 
-#### Self Check Question
+#### Self Check Question 4
 
 <details>
   <summary>Where is the HTML code for this page?</summary>
@@ -74,6 +75,6 @@ But first, let's get our app onto Heroku.  This is actually a critical step.  We
 * Verify that the Heroku-deployed Wordguesser behaves the same as your development version before continuing. A few lines up from the bottom of the Heroku output in the terminal should have a URL ending in herokuapp.com. Find that, copy it to the clipboard, and paste it into a browser tab to see the current app.
 * Verify the broken functionality by clicking the new game button.
 
------
+-----------
 
 Next: [Part 4 - Cucumber](part_4_cucumber.md)
