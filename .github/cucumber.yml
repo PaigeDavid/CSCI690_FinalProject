@@ -1,0 +1,90 @@
+name: Integration_Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # If you need DB like PostgreSQL, Redis then define service below.
+    # https://github.com/actions/example-services/tree/master/.github/workflows
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        # tmpfs makes DB faster by using RAM
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
+
+    # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
+    strategy:
+      fail-fast: false
+      matrix:
+        # Set N number of parallel jobs you want to run tests on.
+        # Use higher number if you have slow tests to split them on more parallel jobs.
+        # Remember to update ci_node_index below to 0..N-1
+        ci_node_total: [8]
+        # set N-1 indexes for parallel jobs
+        # When you run 2 parallel jobs then first job will have index 0, the second job will have index 1 etc
+        ci_node_index: [0, 1, 2, 3, 4, 5, 6, 7]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.6
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Bundle install
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Create DB
+        env:
+          # use localhost for the host here because we have specified a container for the job.
+          # If we were running the job on the VM this would be postgres
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
+        run: |
+          bin/rails db:prepare
+
+      - name: Run tests
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
+          KNAPSACK_PRO_TEST_SUITE_TOKEN_CUCUMBER: ${{ secrets.KNAPSACK_PRO_TEST_SUITE_TOKEN_CUCUMBER }}
+          KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+          KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
+          KNAPSACK_PRO_LOG_LEVEL: info
+        run: |
+          bundle exec rake knapsack_pro:queue:cucumber
