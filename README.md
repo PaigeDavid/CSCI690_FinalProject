@@ -1,7 +1,3 @@
-# CSCI690_FinalProject
-Convert the Wordguesser app (or an appropriately scoped personal project) into a full DevSecOps pipeline, but use GitHub and GitHub Actions
-
-
 # Wordguesser: a scaffolded (!) ESaaS getting-started assignment
 =============================================================
 
@@ -15,7 +11,7 @@ In this assignment you'll be introduced to part of the basic cycle of creating S
 
 
 
-Learning Goals
+## Learning Goals
 --------------
 After completing this assignment, you will be able to:
 
@@ -25,7 +21,7 @@ After completing this assignment, you will be able to:
 * Understand the challenges of adapting a non-SaaS application to a SaaS environment, including how to identify and manage application state
 * Understand one use case of service-oriented architecture, in which your SaaS app relies on an external service's API (application programming interface) to provide part of the SaaS app's functionality.
 
-Prerequisites
+## Prerequisites
 -------------
 * You should be familiar with Ruby basics, for example by completing the Ruby Intro or Ruby Calisthenics assignment.
 * You should have read [ESaaS](http://www.saasbook.info) Chapter 2, "The Architecture of SaaS Applications", and watched the accompanying videos in the [MOOC](http://www.saas-class.org).
@@ -34,7 +30,7 @@ Prerequisites
 
 **NOTE: You may find the [Sinatra documentation](https://sinatrarb.com) helpful to have on hand.**
 
-Introduction
+## Introduction
 ------------
 The full Agile/XP cycle we follow in ESaaS includes talking to the customer, using BDD to develop scenarios, turning those scenarios into runnable integration/acceptance tests with Cucumber, using those scenarios plus TDD to drive the creation of actual code, and deploying the result of each iteration's work to the cloud.
 
@@ -50,7 +46,7 @@ You'll deploy your game to the cloud using Heroku, giving you experience in auto
 
 This assignment uses the simple [Sinatra](https://github.com/sinatra/sinatra) framework rather than Rails, so that you can focus on tools, mechanics, and SaaS concepts, all of which will readily map to Rails later.  Since our app doesn't have a database and has very few functions, Sinatra is an easy way to get started.
 
-Contents
+## Contents
 ---------
 
 * Part 0: [Demystifying SaaS app creation](docs/part_0_create_saas_app.md)
