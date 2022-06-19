@@ -1,3 +1,4 @@
+# Part 1: Wordguesser
 ```sh
 git clone https://github.com/saasbook/hw-sinatra-saas-wordguesser
 cd hw-sinatra-saas-wordguesser
@@ -24,7 +25,8 @@ Our Web-based word-guessing game will work as follows:
 
 * A letter that has already been guessed or is a non-alphabet character is considered "invalid", i.e. it is not a "valid" guess
 
-To make the game fun to play, each time you start a new game the app will actually retrieve a random English word from a remote server, so every game will be different.  This feature will introduce you not only to using an external service (the random-word generator) as a "building block" in a **Service-Oriented Architecture**, but also how a Cucumber scenario can test such an app deterministically with tests that **break the dependency** on the external service at testing time.
+To make the game fun to play, each time you start a new game the app will actually retrieve a random English word from a remote server, so every game will be different.  This feature will introduce you not only to using an external service (the random-word generator) as a "building block" in a **Service-Oriented Architecture**, but also how a Cucumber scenario can test such an app 
+deterministically with tests that **break the dependency** on the external service at testing time.
 
 * In the app's root directory, say `bundle exec autotest`.  
 
@@ -36,7 +38,7 @@ Now, with Autotest still running, delete `, :pending => true` from line 12, and 
 
 The `describe 'new'` block means "the following block of tests describe the behavior of a 'new' WordGuesserGame instance."  The `WordGuesserGame.new` line causes a new instance to be created, and the next lines verify the presence and values of instance variables.
 
-#### Self Check Questions
+### Self Check Questions
 
 <details>
   <summary>According to our test cases, how many arguments does the
@@ -60,7 +62,8 @@ instance variables is a WordGuesserGame expected to have?</summary>
 
 In order to make this failing test pass you'll need to create getters and setters for the instance variables mentioned in the self check tests above.  Hint: use `attr_accessor`.  When you've done this successfully and saved `wordguesser_game.rb`, `autotest` should wake up again and the examples that were previously failing should now be passing (green).
 
-Continue in this manner, removing `, :pending => true` from one or two examples at a time working your way down the specs, until you've implemented all the instance methods of the game class: `guess`, which processes a guess and modifies the instance variables `wrong_guesses` and `guesses` accordingly; `check_win_or_lose`, which returns one of the symbols `:win`, `:lose`, or `:play` depending on the current game state; and `word_with_guesses`, which substitutes the correct guesses made so far into the word.
+Continue in this manner, removing `, :pending => true` from one or two examples at a time working your way down the specs, until you've implemented all the instance methods of the game class: `guess`, which processes a guess and modifies the instance variables `wrong_guesses` and `guesses` accordingly; `check_win_or_lose`, which returns one of the symbols 
+`:win`, `:lose`, or `:play` depending on the current game state; and `word_with_guesses`, which substitutes the correct guesses made so far into the word.
 
 ### Debugging Tip
 
@@ -68,8 +71,8 @@ When running tests, you can insert the Ruby command `byebug` into your app code 
 
 * Take a look at the code in the class method `get_random_word`, which retrieves a random word from a Web service we found that does just that.  Use the following command to verify that the Web service actually works this way. Run it several times to verify that you get different words.
 
-```
-$ curl --data '' http://randomword.saasbook.info/RandomWord
+```curl
+curl --data '' http://randomword.saasbook.info/RandomWord
 ```
 
 (`--data` is necessary to force `curl` to do a POST rather than a GET.  Normally the argument to `--data` would be the encoded form fields, but in this case no form fields are needed.) Using `curl` is a great way to debug interactions with external services.  `man curl` for (much) more detail on this powerful command-line tool.
