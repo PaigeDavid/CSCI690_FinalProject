@@ -28,7 +28,7 @@ ruby '2.6.6'
 gem 'sinatra', '>= 2.0.1'
 ```
 
-The first line says that the preferred place to download any necessary gems is https://rubygems.org, which is where the Ruby community registers "production ready" gems.
+The first line says that the preferred place to download any necessary gems is <https://rubygems.org/>, which is where the Ruby community registers "production ready" gems.
 
 The second line specifies which version of the Ruby language interpreter is required.  If we omitted this line, Bundler wouldn't try to verify which version of Ruby is available; there are subtle differences between the versions, and not all gems work with all versions, so it's best to specify this.
 
@@ -42,13 +42,13 @@ Run the command `bundle`, which examines your `Gemfile` to make sure the correct
 To place under version control, use these commands:
 
 ```sh
-$ git add .
-$ git commit -m "Set up the Gemfile"
+git add .
+git commit -m "Set up the Gemfile"
 ```
 
 The first command stages all changed files for committing. The second command commits the staged files with the comment in the quotes. You can repeat these commands to commit future changes. Remember that these are LOCAL commits -- if you want these changes on GitHub, you'll need to do a git push command, which we will show later.
 
-#### Self Check Questions (click triangle to check your answer)
+### Self Check Questions (click triangle to check your answer)
 
 <details>
   <summary>What's the difference between the purpose and contents of <code>Gemfile</code> and <code>Gemfile.lock</code>?  Which file is needed to completely reproduce the development environment's gems in the production environment?</summary>
@@ -66,8 +66,8 @@ that were not listed in <code>Gemfile</code>?</summary>
 Create a simple SaaS app with Sinatra
 -------------------------------------
 
-As Chapter 2 of ESaaS explains, SaaS apps require a web server to receive HTTP requests from the outside world, and an application server that "connects" your app's logic to the web server.  For development, we will use `webrick`, a very simple Ruby-based web server that would be inappropriate for production but is fine for development.  In both development and production, we will use the `rack` Ruby-based application server,
-which supports Ruby apps written in various frameworks including Sinatra and Rails.
+As Chapter 2 of ESaaS explains, SaaS apps require a web server to receive HTTP requests from the outside world, and an application server that "connects" your app's logic to the web server.  For development, we will use `webrick`, a very simple Ruby-based web server that would be inappropriate for production but is fine for development. 
+In both development and production, we will use the `rack` Ruby-based application server, which supports Ruby apps written in various frameworks including Sinatra and Rails.
 
 As Chapter 2 of *ESaaS* explains, a SaaS app essentially recognizes and responds to HTTP requests corresponding to the application's *routes* (recall that a route consists of an HTTP method such as `GET` or `POST` plus a URI).  Sinatra provides an extremely lightweight shorthand for matching a route with the app code to be executed when a request using that route arrives from the Web server.
 
@@ -85,7 +85,7 @@ end
 
 The `get` method is provided by the `Sinatra::Base` class, from which our `MyApp` class inherits; `Sinatra::Base` is available because we load the Sinatra library on line 1.
 
-#### Self Check Question
+### Self Check Question
 
 <details>
   <summary>What *two* steps did we take earlier to guarantee that the Sinatra library is available to load in line 1?</summary>
@@ -170,7 +170,7 @@ Modify `app.rb` to print a different message, and verify that the change is dete
 
 Deploy to Heroku
 ----------------
-Heroku is a cloud platform-as-a-service (PaaS) where we can deploy our Sinatra (and later Rails) applications. If you don't have an account yet, go sign up at http://www.heroku.com. You'll need your login and password for the next step.
+Heroku is a cloud platform-as-a-service (PaaS) where we can deploy our Sinatra (and later Rails) applications. If you don't have an account yet, go sign up at <http://www.heroku.com/>. You'll need your login and password for the next step.
 
 Install Heroku CLI following [instructions](https://devcenter.heroku.com/articles/heroku-cli).
 
@@ -184,7 +184,7 @@ Earlier we saw that to run the app locally you run `rackup` to start the Rack ap
 which specifies one or more types of Heroku processes your app will use, and how to start each one. The most basic Heroku process type is called a Dyno, or "web worker".  One Dyno can serve one user request at a time.  Since we're on Heroku's free tier, we can only have one Dyno. Let's create a file named `Procfile`, and only this as the name (i.e. Procfile.txt is not valid).
 Write the following line in your `Procfile`:
 
-```
+```bash
 web: bundle exec rackup config.ru -p $PORT
 ```
 
@@ -192,8 +192,8 @@ This tells Heroku to start a single web worker (Dyno) using essentially the same
 
 Your local repo is now ready to deploy to Heroku:
 
-```
-$ git push heroku master
+```bash
+git push heroku master
 ```
 
 (`master` refers to which branch of the remote Heroku repo we are pushing to.  We'll learn about branches later in the course, but for now, suffice it to say that you can only deploy to the `master` branch on Heroku.) This push will create a running instance of your app at some URL ending with `herokuapp.com`. Enter that URL in a new browser tab to see your app running live.
