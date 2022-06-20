@@ -90,4 +90,4 @@ jobs:
           #KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
           #KNAPSACK_PRO_LOG_LEVEL: info
         run: |
-          bundle exec rake cucumber
+          cucumber
