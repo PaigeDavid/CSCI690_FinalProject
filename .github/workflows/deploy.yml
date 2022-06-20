@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -15,3 +15,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "csci690-wordguesser" #Must be unique in Heroku
           heroku_email: "paigepeck@hotmail.com"
+          usedocker: true
