@@ -33,7 +33,7 @@ jobs:
         run: sudo apt-get -yqq install libpq-dev
 
       - name: Run bundle install
-        working-directory: ${{env}}
+        working-directory: ${{env.api-dir}}
         run: |
           gem install bundler:1.17.3
           bundle update
