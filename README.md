@@ -4,7 +4,7 @@
 [![Static_Analysis](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/superlinter.yml/badge.svg)](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/superlinter.yml)
 [![Unit_Test](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/rspec.yml/badge.svg)](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/rspec.yml)
 [![Integration_Test](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/cucumber.yml/badge.svg)](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/cucumber.yml)
-[![Deploy](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/deploy.yml/badge.svg)](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/PaigeDavid/CSCI690_FinalProject/actions/workflows/deploy.yml)
 
 (v1.1, September 2015.  Written by Armando Fox and Nick Herson)
 (some edits by mverdicchio 21 September 2015)
