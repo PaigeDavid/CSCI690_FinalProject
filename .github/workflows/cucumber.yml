@@ -67,15 +67,15 @@ jobs:
           gem install bundler:1.17.3
           bundle install --jobs 4 --retry 3
 
-      - name: Create DB
-        env:
+      #- name: Create DB
+        #env:
           # use localhost for the host here because we have specified a container for the job.
           # If we were running the job on the VM this would be postgres
-          PGHOST: localhost
-          PGUSER: postgres
-          RAILS_ENV: test
-        run: |
-          bin/rails db:prepare
+        #  PGHOST: localhost
+        #  PGUSER: postgres
+        #  RAILS_ENV: test
+        #run: |
+        #  bin/rails db:prepare
 
       - name: Run tests
         env:
